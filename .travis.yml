@@ -1,0 +1,16 @@
+language: generic 
+
+# To use Docker, we need super user permissions
+sudo: required
+
+# Tell Travis we need Docker ready to go
+services:
+  - docker
+
+# Series of different commands that executed before tests are ran
+before_install:
+  - docker build -t dylanolearydev/docker-react -f Dockerfile.dev .
+
+# All commands needed to run our test suite
+script:
+  - docker run -e CI=true dylanolearydev/docker-react yarn test
